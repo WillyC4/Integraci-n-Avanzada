@@ -31,13 +31,10 @@ jobs:
       run: |
         docker build -t flask-tasks-app .
 
-    # Opcional: SonarQube scan (si lo configuras)
-    # - name: SonarQube Scan
-    #   uses: sonarsource/sonarqube-scan-action@v1.0.0
-    #   with:
-    #     projectBaseDir: .
-    #     args: >
-    #       -Dsonar.projectKey=flask-tasks
-    #       -Dsonar.organization=your-org
-    #       -Dsonar.host.url=http://your-sonarqube-server
-    #       -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+    - name: SonarQube Scan
+      uses: sonarsource/sonarqube-scan-action@v1.0.0
+      with:
+        projectBaseDir: .
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: http://localhost:9000
