@@ -1,7 +1,10 @@
 import app
 
 def test_get_tasks():
-    assert isinstance(app.get_tasks().json, list)
+    with app.app.test_client() as client:
+        response = client.get('/tasks')
+        assert response.status_code == 200
+        assert isinstance(response.get_json(), list)
 
 def test_create_task():
     app.tasks.clear()
